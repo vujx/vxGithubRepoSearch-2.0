@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">GithubRepoSearch2.0</string>
+    <string name="app_name">GithubRepo</string>
+
+    <!-- Menu -->
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+
+    <!-- Fragment Repos -->
+    <string name="github_repositories_list">GitHub Repositories List</string>
+    <string name="searchQuery">Enter repository</string>
+
+    <!-- Dialog -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="filter_title">Repository Filter</string>
+    <string name="stars">Stars</string>
+    <string name="forks">Forks</string>
+    <string name="update">Updates</string>
 </resources>
