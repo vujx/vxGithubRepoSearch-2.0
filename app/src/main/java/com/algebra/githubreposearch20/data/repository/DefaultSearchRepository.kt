@@ -11,5 +11,4 @@ class DefaultSearchRepository(private val searchDao: SearchDao) : SearchRepoData
     override suspend fun insertSearchRepo(searchRepo: SearchRepo) = searchDao.insertSearchRepo(searchRepo)
 
     override suspend fun deleteAllSearchRepos() = searchDao.removeAllSearchRepos()
-
 }

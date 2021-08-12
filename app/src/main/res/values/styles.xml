@@ -22,4 +22,19 @@
         <item name="android:textColor">#E53935</item>
     </style>
 
+    <!-- Repo Item -->
+
+    <style name="displayAuthorAndRepo">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="detailsMainList">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+    </style>
+
 </resources>

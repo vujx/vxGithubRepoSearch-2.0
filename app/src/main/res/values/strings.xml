@@ -22,4 +22,15 @@
     <string name="unexpected_error">Unexpected error. Please try again later.</string>
     <string name="check_internet">Check you internet connection!</string>
     <string name="unknown_host">There is a problem with loading new data. Please try again later.</string>
+
+    <!-- Check Values-->
+    <string name="check_value_message">"Value not available!"</string>
+
+    <!-- ReposFragment-->
+    <string name="displayForks">Forks: %d</string>
+    <string name="displayIssues">Issues: %d</string>
+    <string name="displayWatchers">Watchers: %d</string>
+    <string name="displayStars">Stars: %d</string>
+    <string name="displayUpdate">Update: %d</string>
+
 </resources>
