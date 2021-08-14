@@ -8,7 +8,7 @@
     <!-- Dialog -->
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="filter_title">Repository Filter</string>
+    <string name="filter_title">Filter By</string>
     <string name="stars">Stars</string>
     <string name="forks">Forks</string>
     <string name="update">Updates</string>
@@ -34,5 +34,6 @@
     <!-- Toolbar-->
     <string name="details_title">RepoDetails</string>
     <string name="repos_title">GitHubRepos</string>
+    <string name="search_message">Search for GitHub Repository!</string>
 
 </resources>

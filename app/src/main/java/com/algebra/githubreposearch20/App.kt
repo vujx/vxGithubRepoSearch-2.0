@@ -7,6 +7,7 @@ import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideHttpClient
 import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideRetrofit
 import com.algebra.githubreposearch20.data.di.DatabaseModule.provideDatabase
 import com.algebra.githubreposearch20.data.di.DatabaseModule.provideSearchDao
+import com.algebra.githubreposearch20.data.di.SharePreferenceModule.provideSharePreference
 import com.algebra.githubreposearch20.data.di.UseCaseModule.provideUseCase
 import com.algebra.githubreposearch20.data.repository.DefaultGitHupRepository
 import com.algebra.githubreposearch20.data.repository.DefaultSearchRepository
@@ -47,6 +48,10 @@ class App : Application() {
         viewModel { GitHubRepoViewModel(get()) }
     }
 
+    private val sharePreferencesModule = module {
+        single { provideSharePreference(applicationContext) }
+    }
+
     override fun onCreate() {
         super.onCreate()
         getResources = resources
@@ -59,7 +64,8 @@ class App : Application() {
                     dbModule,
                     repoModule,
                     useCaseModule,
-                    viewModelModule
+                    viewModelModule,
+                    sharePreferencesModule
                 )
             )
         }
