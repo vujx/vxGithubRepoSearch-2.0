@@ -5,10 +5,6 @@
     <string name="search">Search</string>
     <string name="filter">Filter</string>
 
-    <!-- Fragment Repos -->
-    <string name="github_repositories_list">GitHub Repositories List</string>
-    <string name="searchQuery">Enter repository</string>
-
     <!-- Dialog -->
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
@@ -27,10 +23,16 @@
     <string name="check_value_message">"Value not available!"</string>
 
     <!-- ReposFragment-->
+    <string name="github_repositories_list">GitHub Repositories List</string>
+    <string name="searchQuery">Enter repository</string>
     <string name="displayForks">Forks: %d</string>
     <string name="displayIssues">Issues: %d</string>
     <string name="displayWatchers">Watchers: %d</string>
     <string name="displayStars">Stars: %d</string>
-    <string name="displayUpdate">Update: %d</string>
+    <string name="displayUpdate">Update: %s</string>
+
+    <!-- Toolbar-->
+    <string name="details_title">RepoDetails</string>
+    <string name="repos_title">GitHubRepos</string>
 
 </resources>

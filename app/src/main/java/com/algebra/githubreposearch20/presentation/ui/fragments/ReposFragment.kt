@@ -1,13 +1,13 @@
 package com.algebra.githubreposearch20.presentation.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.algebra.githubreposearch20.R
@@ -18,37 +18,49 @@ import com.algebra.githubreposearch20.presentation.ui.adapter.RepoAdapterListene
 import com.algebra.githubreposearch20.presentation.ui.viewmodel.GitHubRepoViewModel
 import com.algebra.githubreposearch20.util.*
 import com.readystatesoftware.chuck.internal.ui.MainActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReposFragment : Fragment(R.layout.fragment_repos), RepoAdapterListener {
 
     private val binding by viewBinding(FragmentReposBinding::bind)
     private lateinit var searchView: SearchView
 
-    private val viewModelRepo: GitHubRepoViewModel by viewModels()
+    private val viewModelRepo: GitHubRepoViewModel by viewModel()
     private val adapter = RepoAdapter(this)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModelRepo.getAllGitHubRepos("calc")
         bind()
         setUpRecyclerView()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_repos_fragment, menu)
+    override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
+        Log.d("ispisovo", "sasda")
+        menuInflater.inflate(R.menu.menu_repos_fragment, menu)
         val searchItem = menu.findItem(R.id.searchIcon)
         searchView = searchItem?.actionView as SearchView
         searchView.queryHint = getString(R.string.searchQuery)
 
+        Log.d("ispis ovo", "sasa")
         searchAction(searchView, requireContext(), viewModelRepo)
-        return super.onCreateOptionsMenu(menu, inflater)
+        return super.onCreateOptionsMenu(menu, menuInflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.filterIcon -> { true }
-            else -> true
+        when (item.itemId) {
+            R.id.filterIcon -> {
+            }
+            else -> {
+            }
         }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setUpRecyclerView() {

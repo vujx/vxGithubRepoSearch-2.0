@@ -1,5 +1,6 @@
 package com.algebra.githubreposearch20.domain.usecase.network
 
+import android.util.Log
 import com.algebra.githubreposearch20.App
 import com.algebra.githubreposearch20.R
 import com.algebra.githubreposearch20.data.mapper.GitHubRepoMapper
@@ -22,17 +23,22 @@ class GetGitHubRepos(private val gitHubRepoNetwork: GitHubRepository, private va
             if (searchRepos.isEmpty()) {
                 val response = gitHubRepoNetwork.getGitHubRepos(params)
                 when (response.code()) {
-                    200 -> response.body()?.let { result ->
-                        callback.onSuccess(gitHubRepoMapper.mapListFromEntity(result))
-                        result.items.forEach { item ->
-                            searchRepo.insertSearchRepo(gitHubRepoMapper.mapFromItemToSearchRepo(item, params))
-                        }
-                    } ?: callback.onError(App.getStringResource(R.string.unexpected_error))
+                    200 -> {
+                        response.body()?.let { result ->
+                            Log.d("ispisiovo", result.toString())
+                            callback.onSuccess(gitHubRepoMapper.mapListFromEntity(result))
+                            result.items.forEach { item ->
+                                searchRepo.insertSearchRepo(gitHubRepoMapper.mapFromItemToSearchRepo(item, params))
+                            }
+                        } ?: callback.onError(App.getStringResource(R.string.unexpected_error))
+                        Log.d("ispisiovo", response.body().toString())
+                    }
                     404 -> callback.onError(App.getStringResource(R.string.repo_not_found))
                     else -> callback.onError(App.getStringResource(R.string.unexpected_error))
                 }
             } else callback.onSuccess(searchRepoMapper.mapListFromEntity(searchRepos))
         } catch (e: Exception) {
+            Log.d("ispisiovo", e.toString())
             when (e) {
                 is NoConnectivityException -> { callback.onError(App.getStringResource(R.string.check_internet)) }
                 is UnknownHostException -> { callback.onError(App.getStringResource(R.string.unexpected_error)) }
