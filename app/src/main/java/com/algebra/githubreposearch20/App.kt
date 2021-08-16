@@ -14,6 +14,7 @@ import com.algebra.githubreposearch20.data.repository.DefaultSearchRepository
 import com.algebra.githubreposearch20.domain.repository.db.SearchRepository
 import com.algebra.githubreposearch20.domain.repository.network.GitHubRepository
 import com.algebra.githubreposearch20.presentation.ui.viewmodel.GitHubRepoViewModel
+import com.algebra.githubreposearch20.presentation.ui.viewmodel.UserViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -45,7 +46,12 @@ class App : Application() {
     }
 
     private val viewModelModule = module {
-        viewModel { GitHubRepoViewModel(get()) }
+        viewModel {
+            GitHubRepoViewModel(get())
+        }
+        viewModel {
+            UserViewModel(get())
+        }
     }
 
     private val sharePreferencesModule = module {

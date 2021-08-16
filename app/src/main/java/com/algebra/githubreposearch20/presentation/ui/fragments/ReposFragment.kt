@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.addCallback
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -42,6 +43,10 @@ class ReposFragment : Fragment(R.layout.fragment_repos), RepoAdapterListener, Di
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            exitFromApp(requireActivity() as MainActivity)
+        }
 
         getLastSearchRepos()
         bind()
@@ -119,7 +124,7 @@ class ReposFragment : Fragment(R.layout.fragment_repos), RepoAdapterListener, Di
     }
 
     override fun onItemClick(gitHubRepo: GitHubRepo) {
-        val action = ReposFragmentDirections.actionReposFragmentToRepoDetailsFragment()
+        val action = ReposFragmentDirections.actionReposFragmentToRepoDetailsFragment(gitHubRepo)
         view?.let { Navigation.findNavController(it).navigate(action) }
     }
 

@@ -41,7 +41,7 @@ class GetGitHubRepos(private val gitHubRepoNetwork: GitHubRepository, private va
             Log.d("ispisiovo", e.toString())
             when (e) {
                 is NoConnectivityException -> { callback.onError(App.getStringResource(R.string.check_internet)) }
-                is UnknownHostException -> { callback.onError(App.getStringResource(R.string.unexpected_error)) }
+                is UnknownHostException -> { callback.onError(App.getStringResource(R.string.unknown_host)) }
                 else -> { callback.onError(App.getStringResource(R.string.unexpected_error)) }
             }
         }

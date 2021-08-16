@@ -1,5 +1,9 @@
 package com.algebra.githubreposearch20.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class GitHubRepo(
     override val repoName: String,
     override val watchers: Int,
@@ -13,4 +17,4 @@ data class GitHubRepo(
     override val descriptionRepo: String,
     override val author: String,
     override val thumbnailImage: String
-) : GitHubRepoInfo
+) : GitHubRepoInfo, Parcelable
