@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity(), CustomDialogListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_GithubRepoSearch20)
         setContentView(binding.root)
 
         setToolbar()
