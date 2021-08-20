@@ -4,7 +4,6 @@ import android.content.Context
 import com.algebra.githubreposearch20.data.network.GitHubService
 import com.algebra.githubreposearch20.data.network.connection.ConnectivityInterceptorImpl
 import com.algebra.githubreposearch20.util.Constants
-import com.readystatesoftware.chuck.ChuckInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -29,7 +28,7 @@ object ApiServiceModule {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         return OkHttpClient.Builder()
-            .addInterceptor(ChuckInterceptor(context))
+            // .addInterceptor(ChuckInterceptor(context))
             .addInterceptor(logging)
             .addInterceptor(ConnectivityInterceptorImpl(context))
             .build()

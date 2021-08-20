@@ -2,6 +2,7 @@ package com.algebra.githubreposearch20.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -9,19 +10,16 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.algebra.githubreposearch20.R
 import com.algebra.githubreposearch20.databinding.ActivityMainBinding
 import com.algebra.githubreposearch20.presentation.ui.dialog.CustomDialogListener
-import com.algebra.githubreposearch20.presentation.ui.dialog.DialogFilterListener
-import com.algebra.githubreposearch20.util.viewBinding
 
 class MainActivity : AppCompatActivity(), CustomDialogListener {
 
-    private val binding by viewBinding(ActivityMainBinding::inflate)
-
+    private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setTheme(R.style.Theme_GithubRepoSearch20)
-        setContentView(binding.root)
 
         setToolbar()
         setNavHost()

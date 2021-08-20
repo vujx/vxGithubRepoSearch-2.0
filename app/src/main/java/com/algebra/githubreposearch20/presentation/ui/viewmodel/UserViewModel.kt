@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 import com.algebra.githubreposearch20.App
 import com.algebra.githubreposearch20.R
 import com.algebra.githubreposearch20.data.usecase.UseCase
-import com.algebra.githubreposearch20.domain.model.GitHubRepo
 import com.algebra.githubreposearch20.domain.model.User
 import com.algebra.githubreposearch20.domain.usecase.BaseUseCase
 import com.algebra.githubreposearch20.util.Resource
@@ -30,6 +29,7 @@ class UserViewModel(private val useCase: UseCase) : ViewModel(), BaseUseCase.Cal
     }
 
     override fun onError(errorMessage: String) {
+        user.postValue(Resource.Loading())
         user.postValue(Resource.Failure(errorMessage))
     }
 }

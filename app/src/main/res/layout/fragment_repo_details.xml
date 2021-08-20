@@ -1,33 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.fragments.RepoDetailsFragment">
+
+    <data>
+
+        <variable
+            name="repo"
+            type="com.algebra.githubreposearch20.domain.model.GitHubRepo" />
+
+        <variable
+            name="user"
+            type="com.algebra.githubreposearch20.domain.model.User" />
+
+        <variable
+            name="helper"
+            type="com.algebra.githubreposearch20.presentation.ui.fragments.Helper" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".presentation.ui.fragments.RepoDetailsFragment">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/tvAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@{repo.author}"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imAuthor"
+            imageUrl="@{repo.thumbnailImage}"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="5dp"
-            android:scaleType="fitXY"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="16dp"
+            android:onClick="@{() -> helper.redirectToGitHub()}"
+            android:scaleType="fitXY"
             app:layout_constraintTop_toBottomOf="@id/tvAuthor" />
 
         <TextView
@@ -35,11 +56,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="@{user.desc}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/imAuthor"
             app:layout_goneMarginTop="8dp" />
 
@@ -48,10 +70,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:onClick="@{() -> helper.redirectToGitHubRepo()}"
+            android:text="@{repo.repoName}"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvInformationAuthor"
@@ -64,9 +88,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="@{repo.descriptionRepo}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/tvRepoName" />
 
         <TextView
@@ -75,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:text="@{String.format(@string/prog_lang, repo.language)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvRepoDesc" />
 
@@ -84,6 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:text="@{String.format(@string/date_create, repo.dateCreation)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvProgLang" />
 
@@ -93,6 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:text="@{String.format(@string/last_modified, repo.lastModification)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvDateCreation" />
 
@@ -101,10 +129,11 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:indeterminateTint="#E53935"
-            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{helper.isLoading ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
