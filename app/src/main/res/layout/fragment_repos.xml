@@ -15,6 +15,10 @@
             name="searchResult"
             type="com.algebra.githubreposearch20.presentation.ui.helper.SearchResultHelper" />
 
+        <variable
+            name="refresh"
+            type="com.algebra.githubreposearch20.presentation.ui.helper.RefreshHelper" />
+
         <import type="android.view.View" />
     </data>
 
@@ -36,13 +40,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRepos"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDisplayMessage" />
+            app:refreshing="@{refresh.isLoading}"
+            app:onRefreshListener="@{() -> refresh.refreshList()}"
+            app:layout_constraintTop_toBottomOf="@id/tvDisplayMessage">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRepos"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDisplayMessage" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ProgressBar
             android:id="@+id/progressBar"
