@@ -1,18 +1,20 @@
 package com.algebra.githubreposearch20.presentation.ui.dialog
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.algebra.githubreposearch20.App
 import com.algebra.githubreposearch20.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class CustomDialog(private val listener: CustomDialogListener, private val title: String) : DialogFragment() {
+class CustomDialog(private val listener: CustomDialogListener, private val title: String) :
+    DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): AlertDialog {
-        Log.d("ispis", "ovo")
-        return MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialog_OK_color).setView(view)
+        return MaterialAlertDialogBuilder(
+            requireActivity(),
+            R.style.MaterialAlertDialog_OK_color
+        ).setView(view)
             .setMessage(title)
             .setPositiveButton(App.getStringResource(R.string.ok)) { _, _ ->
                 listener.okPress()

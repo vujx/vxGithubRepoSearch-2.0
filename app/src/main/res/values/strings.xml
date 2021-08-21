@@ -18,8 +18,9 @@
     <string name="repo_not_found">Repo not found, try again!</string>
     <string name="unexpected_error">Unexpected error. Please try again later.</string>
     <string name="check_internet">Check you internet connection!</string>
-    <string name="no_internet_connection">No Internet Connection.</string>
+    <string name="no_internet_connection">No Internet Connection</string>
     <string name="unknown_host">There is a problem with loading new data. Please try again later.</string>
+    <string name="user_not_found">User description not found, try again!</string>
 
     <!-- Check Values-->
     <string name="check_value_message">"Value not available!"</string>

@@ -2,9 +2,7 @@ package com.algebra.githubreposearch20.presentation
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -13,12 +11,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.algebra.githubreposearch20.R
 import com.algebra.githubreposearch20.data.db.SearchDao
-import com.algebra.githubreposearch20.data.network.connection.ConnectionLiveData
 import com.algebra.githubreposearch20.databinding.ActivityMainBinding
 import com.algebra.githubreposearch20.presentation.ui.dialog.CustomDialogListener
 import com.algebra.githubreposearch20.presentation.ui.helper.ConnectionHelper
+import com.algebra.githubreposearch20.util.ConnectionLiveData
 import com.algebra.githubreposearch20.util.Constants
-import com.bumptech.glide.manager.ConnectivityMonitor
 import org.koin.android.ext.android.inject
 import java.util.*
 
@@ -34,18 +31,24 @@ class MainActivity : AppCompatActivity(), CustomDialogListener {
     private lateinit var connectionHelper: ConnectionHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_GithubRepoSearch20)
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_GithubRepoSearch20)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        connectionLiveData = ConnectionLiveData(context = this)
-        connectionHelper = ConnectionHelper(connectionLiveData, this)
-        binding.connection = connectionHelper
-        connectionHelper.observeInternetConnection()
+        setDataValues()
+
         setToolbar()
         setNavHost()
 
         setupActionBarWithNavController(navController)
         addLastDateOfClearingSearchResults()
+    }
+
+    private fun setDataValues() {
+        connectionLiveData = ConnectionLiveData(context = this)
+        connectionHelper = ConnectionHelper(connectionLiveData, this)
+        binding.connection = connectionHelper
+        connectionHelper.observeInternetConnection()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -57,7 +60,8 @@ class MainActivity : AppCompatActivity(), CustomDialogListener {
     }
 
     private fun setNavHost() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         navController = navHostFragment.findNavController()
     }
 

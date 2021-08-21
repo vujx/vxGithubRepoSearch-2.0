@@ -10,6 +10,7 @@ import com.algebra.githubreposearch20.domain.usecase.BaseUseCase
 
 class GetFilterGitHubRepos(private val searchRepo: SearchRepository) :
     BaseUseCase<Int, List<GitHubRepo>> {
+
     private val searchRepoMapper = SearchMapper()
     private val result = mutableListOf<SearchRepo>()
 

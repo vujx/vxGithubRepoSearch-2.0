@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presentation.ui.fragments.ReposFragment"
-    >
+    tools:context=".presentation.ui.fragments.ReposFragment">
 
     <data>
+
         <variable
-            name="helper"
+            name="progressBarHelper"
             type="com.algebra.githubreposearch20.presentation.ui.helper.ProgressBarHelper" />
 
         <variable
@@ -38,16 +37,16 @@
             android:textStyle="italic|bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:refreshing="@{refresh.isLoading}"
+            app:layout_constraintTop_toBottomOf="@id/tvDisplayMessage"
             app:onRefreshListener="@{() -> refresh.refreshList()}"
-            app:layout_constraintTop_toBottomOf="@id/tvDisplayMessage">
+            app:refreshing="@{refresh.isLoading}">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvRepos"
@@ -64,23 +63,23 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:indeterminateTint="#E53935"
-            android:visibility="@{helper.isLoading ? View.VISIBLE : View.GONE}"
-            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{progressBarHelper.isLoading ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvSearchNoResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{searchResult.searchResult}"
             android:textColor="#F4511E"
             android:textSize="16sp"
-            android:text="@{searchResult.searchResult}"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

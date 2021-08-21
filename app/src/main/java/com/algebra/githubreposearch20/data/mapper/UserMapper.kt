@@ -7,5 +7,8 @@ import com.algebra.githubreposearch20.domain.util.checkValue
 class UserMapper : EntityMapper<UserEntity, User> {
 
     override fun mapFromEntity(entity: UserEntity): User =
-        User(checkValue(entity.bio, 250), checkValue(entity.location))
+        User(
+            checkValue(entity.bio, 250),
+            checkValue(entity.location)
+        )
 }
