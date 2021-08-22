@@ -1,16 +1,16 @@
 package com.algebra.githubreposearch20.domain.model
 
 data class GitHubRepo(
-    val repoName: String,
-    val watchers: Int,
-    val forks: Int,
-    val issues: Int,
-    val stars: Int,
-    val update: String,
-    val language: String,
-    val dateCreation: String,
-    val lastModification: String,
-    val descriptionRepo: String,
-    val author: String,
-    val thumbnailImage: String
-)
+    override val repoName: String,
+    override val watchers: Int,
+    override val forks: Int,
+    override val issues: Int,
+    override val stars: Int,
+    override val update: String,
+    override val language: String,
+    override val dateCreation: String,
+    override val lastModification: String,
+    override val descriptionRepo: String,
+    override val author: String,
+    override val thumbnailImage: String
+) : GitHubRepoInfo

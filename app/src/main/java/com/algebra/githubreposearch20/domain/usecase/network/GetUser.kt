@@ -5,11 +5,11 @@ import com.algebra.githubreposearch20.R
 import com.algebra.githubreposearch20.data.mapper.UserMapper
 import com.algebra.githubreposearch20.data.network.connection.NoConnectivityException
 import com.algebra.githubreposearch20.domain.model.User
-import com.algebra.githubreposearch20.domain.repository.GitHubRepoRepository
+import com.algebra.githubreposearch20.domain.repository.network.GitHubRepository
 import com.algebra.githubreposearch20.domain.usecase.BaseUseCase
 import java.net.UnknownHostException
 
-class GetUser(private val gitHubRepoNetwork: GitHubRepoRepository) : BaseUseCase<String, User> {
+class GetUser(private val gitHubRepoNetwork: GitHubRepository) : BaseUseCase<String, User> {
 
     private val userMapper = UserMapper()
 

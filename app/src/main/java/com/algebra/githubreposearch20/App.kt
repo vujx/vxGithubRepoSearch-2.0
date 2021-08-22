@@ -5,8 +5,13 @@ import android.content.res.Resources
 import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideApiRepoSearchingService
 import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideHttpClient
 import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideRetrofit
-import com.algebra.githubreposearch20.data.repository.DefaultGitHupRepoRepository
+import com.algebra.githubreposearch20.data.di.DatabaseModule.provideDatabase
+import com.algebra.githubreposearch20.data.di.DatabaseModule.provideSearchDao
+import com.algebra.githubreposearch20.data.repository.DefaultGitHupRepository
+import com.algebra.githubreposearch20.data.repository.DefaultSearchRepository
+import com.algebra.githubreposearch20.data.usecase.UseCase
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.dsl.module
 
@@ -18,10 +23,18 @@ class App : Application() {
         single { provideApiRepoSearchingService(get())}
     }
 
+    private val dbModule = module {
+        single { provideDatabase(applicationContext) }
+        single { provideSearchDao(get()) }
+    }
+
     private val repoModule = module {
-        single {
-            DefaultGitHupRepoRepository(get())
-        }
+        single { DefaultGitHupRepository(get()) }
+        single { DefaultSearchRepository(get()) }
+    }
+
+    private val useCaseModule = module {
+        factory { UseCase(get(), get()) }
     }
 
     override fun onCreate() {
@@ -29,7 +42,7 @@ class App : Application() {
         getResources = resources
         startKoin {
             androidContext(this@App)
-            modules(listOf(appModule, repoModule))
+            modules(listOf(appModule, repoModule, dbModule, useCaseModule))
         }
     }
 
