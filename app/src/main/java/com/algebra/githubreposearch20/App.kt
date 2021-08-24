@@ -10,8 +10,8 @@ import com.algebra.githubreposearch20.data.di.DatabaseModule.provideSearchDao
 import com.algebra.githubreposearch20.data.repository.DefaultGitHupRepository
 import com.algebra.githubreposearch20.data.repository.DefaultSearchRepository
 import com.algebra.githubreposearch20.data.usecase.UseCase
+import com.algebra.githubreposearch20.presentation.ui.viewmodel.GitHubRepoViewModel
 import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.dsl.module
 
@@ -20,7 +20,7 @@ class App : Application() {
     private val appModule = module {
         single { provideHttpClient(applicationContext) }
         single { provideRetrofit(get()) }
-        single { provideApiRepoSearchingService(get())}
+        single { provideApiRepoSearchingService(get()) }
     }
 
     private val dbModule = module {
@@ -37,12 +37,16 @@ class App : Application() {
         factory { UseCase(get(), get()) }
     }
 
+    private val viewModelModule = module {
+        factory { GitHubRepoViewModel(get()) }
+    }
+
     override fun onCreate() {
         super.onCreate()
         getResources = resources
         startKoin {
             androidContext(this@App)
-            modules(listOf(appModule, repoModule, dbModule, useCaseModule))
+            modules(listOf(appModule, repoModule, dbModule, useCaseModule, viewModelModule))
         }
     }
 

@@ -14,16 +14,19 @@ class GetUser(private val gitHubRepoNetwork: GitHubRepository) : BaseUseCase<Str
     private val userMapper = UserMapper()
 
     override suspend fun execute(params: String, callback: BaseUseCase.Callback<User>) {
-        try{
+        try {
             val response = gitHubRepoNetwork.getUser(params)
-            when(response.code()){
-                200 -> {response.body()?.let { callback.onSuccess(userMapper.mapFromEntity(it)) } ?:
-                callback.onError(App.getStringResource(R.string.unexpected_error)) }
+            when (response.code()) {
+                200 ->
+                    {
+                        response.body()?.let { callback.onSuccess(userMapper.mapFromEntity(it)) }
+                            ?: callback.onError(App.getStringResource(R.string.unexpected_error))
+                    }
                 404 -> callback.onError(App.getStringResource(R.string.repo_not_found))
                 else -> callback.onError(App.getStringResource(R.string.unexpected_error))
             }
-        } catch (e: Exception){
-            when(e){
+        } catch (e: Exception) {
+            when (e) {
                 is NoConnectivityException -> { callback.onError(App.getStringResource(R.string.check_internet)) }
                 is UnknownHostException -> { callback.onError(App.getStringResource(R.string.unexpected_error)) }
                 else -> { callback.onError(App.getStringResource(R.string.unexpected_error)) }

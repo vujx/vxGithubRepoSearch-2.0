@@ -6,6 +6,6 @@ import retrofit2.Response
 
 interface GitHubRepoNetworkDataSource {
 
-    suspend fun getGitHubRepos(searchRepo: String) : Response<GitHubRepoEntity>
-    suspend fun getUserInformation(userName: String) : Response<UserEntity>
+    suspend fun getGitHubRepos(searchRepo: String): Response<GitHubRepoEntity>
+    suspend fun getUserInformation(userName: String): Response<UserEntity>
 }

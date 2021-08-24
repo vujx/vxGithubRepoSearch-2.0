@@ -12,10 +12,9 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object ApiServiceModule {
 
-    fun provideApiRepoSearchingService(retrofit: Retrofit): GitHubService{
+    fun provideApiRepoSearchingService(retrofit: Retrofit): GitHubService {
         return retrofit.create(GitHubService::class.java)
     }
-
 
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
