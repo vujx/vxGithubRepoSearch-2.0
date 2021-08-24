@@ -8,9 +8,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.algebra.githubreposearch20.R
 import com.algebra.githubreposearch20.databinding.ActivityMainBinding
+import com.algebra.githubreposearch20.presentation.ui.dialog.CustomDialogListener
+import com.algebra.githubreposearch20.presentation.ui.dialog.DialogFilterListener
 import com.algebra.githubreposearch20.util.viewBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CustomDialogListener {
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
 
@@ -37,5 +39,9 @@ class MainActivity : AppCompatActivity() {
     private fun setNavHost() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         navController = navHostFragment.findNavController()
+    }
+
+    override fun okPress() {
+        finishAffinity()
     }
 }
