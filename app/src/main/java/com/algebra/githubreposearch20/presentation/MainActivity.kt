@@ -2,7 +2,9 @@ package com.algebra.githubreposearch20.presentation
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -11,9 +13,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.algebra.githubreposearch20.R
 import com.algebra.githubreposearch20.data.db.SearchDao
+import com.algebra.githubreposearch20.data.network.connection.ConnectionLiveData
 import com.algebra.githubreposearch20.databinding.ActivityMainBinding
 import com.algebra.githubreposearch20.presentation.ui.dialog.CustomDialogListener
+import com.algebra.githubreposearch20.presentation.ui.helper.ConnectionHelper
 import com.algebra.githubreposearch20.util.Constants
+import com.bumptech.glide.manager.ConnectivityMonitor
 import org.koin.android.ext.android.inject
 import java.util.*
 
@@ -25,12 +30,17 @@ class MainActivity : AppCompatActivity(), CustomDialogListener {
     private val sharedPref: SharedPreferences by inject()
     private val searchDao: SearchDao by inject()
 
+    private lateinit var connectionLiveData: ConnectionLiveData
+    private lateinit var connectionHelper: ConnectionHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_GithubRepoSearch20)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-
+        connectionLiveData = ConnectionLiveData(context = this)
+        connectionHelper = ConnectionHelper(connectionLiveData, this)
+        binding.connection = connectionHelper
+        connectionHelper.observeInternetConnection()
         setToolbar()
         setNavHost()
 
