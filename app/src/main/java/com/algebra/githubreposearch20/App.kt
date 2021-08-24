@@ -7,17 +7,21 @@ import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideHttpClient
 import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideRetrofit
 import com.algebra.githubreposearch20.data.di.DatabaseModule.provideDatabase
 import com.algebra.githubreposearch20.data.di.DatabaseModule.provideSearchDao
+import com.algebra.githubreposearch20.data.di.UseCaseModule.provideUseCase
 import com.algebra.githubreposearch20.data.repository.DefaultGitHupRepository
 import com.algebra.githubreposearch20.data.repository.DefaultSearchRepository
-import com.algebra.githubreposearch20.data.usecase.UseCase
+import com.algebra.githubreposearch20.domain.repository.db.SearchRepository
+import com.algebra.githubreposearch20.domain.repository.network.GitHubRepository
 import com.algebra.githubreposearch20.presentation.ui.viewmodel.GitHubRepoViewModel
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.GlobalContext.startKoin
+import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
 class App : Application() {
 
-    private val appModule = module {
+    private val apiModule = module {
         single { provideHttpClient(applicationContext) }
         single { provideRetrofit(get()) }
         single { provideApiRepoSearchingService(get()) }
@@ -31,22 +35,33 @@ class App : Application() {
     private val repoModule = module {
         single { DefaultGitHupRepository(get()) }
         single { DefaultSearchRepository(get()) }
+        single { GitHubRepository(get<DefaultGitHupRepository>()) }
+        single { SearchRepository(get<DefaultSearchRepository>()) }
     }
 
     private val useCaseModule = module {
-        factory { UseCase(get(), get()) }
+        single { provideUseCase(get(), get()) }
     }
 
     private val viewModelModule = module {
-        factory { GitHubRepoViewModel(get()) }
+        viewModel { GitHubRepoViewModel(get()) }
     }
 
     override fun onCreate() {
         super.onCreate()
         getResources = resources
         startKoin {
+            androidLogger()
             androidContext(this@App)
-            modules(listOf(appModule, repoModule, dbModule, useCaseModule, viewModelModule))
+            modules(
+                listOf(
+                    apiModule,
+                    dbModule,
+                    repoModule,
+                    useCaseModule,
+                    viewModelModule
+                )
+            )
         }
     }
 

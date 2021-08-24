@@ -1,10 +1,12 @@
 package com.algebra.githubreposearch20.data.db
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.algebra.githubreposearch20.data.model.local.SearchRepo
 
+@Dao
 interface SearchDao {
 
     @Query("SELECT * FROM SearchRepos WHERE :searchValue LIKE search_result ORDER BY name")
