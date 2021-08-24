@@ -28,6 +28,7 @@ class ReposFragment : Fragment(R.layout.fragment_repos), DialogFilterListener {
 
     private lateinit var binding: FragmentReposBinding
     private lateinit var searchView: SearchView
+
     private val progressBarHelper = ProgressBarHelper()
     private val searchResultHelper = SearchResultHelper()
     private lateinit var refreshHelper: RefreshHelper
@@ -50,14 +51,9 @@ class ReposFragment : Fragment(R.layout.fragment_repos), DialogFilterListener {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_repos, null, false)
 
-        refreshHelper = RefreshHelper(viewModelRepo)
-        binding.apply {
-            helper = progressBarHelper
-            searchResult = searchResultHelper
-            refresh = refreshHelper
-        }
-
+        setDataValues()
         adapter = RepoAdapter(activity as MainActivity, binding.root)
+
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             exitFromApp(requireActivity() as MainActivity)
         }
@@ -89,6 +85,15 @@ class ReposFragment : Fragment(R.layout.fragment_repos), DialogFilterListener {
         }
     }
 
+    private fun setDataValues() {
+        refreshHelper = RefreshHelper(viewModelRepo)
+        binding.apply {
+            progressBarHelper = this@ReposFragment.progressBarHelper
+            searchResult = searchResultHelper
+            refresh = refreshHelper
+        }
+    }
+
     private fun getLastSearchRepos() {
         val listOfRepos = sharedPref.getString(Constants.SEARCH_REPOS, "")
         if (listOfRepos.isNullOrBlank()) {
@@ -114,9 +119,7 @@ class ReposFragment : Fragment(R.layout.fragment_repos), DialogFilterListener {
                         progressBarHelper.setLoading(false)
                         searchResultHelper.setSearchResult("")
                         adapter.setList(result.value)
-                        val editor = sharedPref.edit()
-                        val jsonOfGitHubRepos = gson.toJson(result.value)
-                        editor.putString(Constants.SEARCH_REPOS, jsonOfGitHubRepos).apply()
+                        addLastSearchResults(result.value)
                     }
                     is Resource.Failure -> {
                         progressBarHelper.setLoading(false)
@@ -132,6 +135,12 @@ class ReposFragment : Fragment(R.layout.fragment_repos), DialogFilterListener {
                 }
             }
         )
+    }
+
+    private fun addLastSearchResults(list: List<GitHubRepo>) {
+        val editor = sharedPref.edit()
+        val jsonOfGitHubRepos = gson.toJson(list)
+        editor.putString(Constants.SEARCH_REPOS, jsonOfGitHubRepos).apply()
     }
 
     private fun setUpRecyclerView() {

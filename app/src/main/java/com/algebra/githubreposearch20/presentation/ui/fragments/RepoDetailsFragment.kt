@@ -10,8 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.algebra.githubreposearch20.R
 import com.algebra.githubreposearch20.databinding.FragmentRepoDetailsBinding
-import com.algebra.githubreposearch20.domain.model.GitHubRepo
 import com.algebra.githubreposearch20.presentation.MainActivity
+import com.algebra.githubreposearch20.presentation.ui.helper.ImageHelper
+import com.algebra.githubreposearch20.presentation.ui.helper.OnClickHelper
+import com.algebra.githubreposearch20.presentation.ui.helper.ProgressBarHelper
 import com.algebra.githubreposearch20.presentation.ui.viewmodel.UserViewModel
 import com.algebra.githubreposearch20.util.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,9 +24,7 @@ class RepoDetailsFragment : Fragment(R.layout.fragment_repo_details) {
     private val viewModelUser: UserViewModel by viewModel()
 
     private val args: RepoDetailsFragmentArgs by navArgs()
-    private lateinit var repo: GitHubRepo
-
-    private lateinit var helper: Helper
+    private val progressBarHelper = ProgressBarHelper()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,20 +34,29 @@ class RepoDetailsFragment : Fragment(R.layout.fragment_repo_details) {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_repo_details, null, false)
 
-        repo = args.currentRepo
-        helper = Helper(activity as MainActivity, repo)
-        binding.repo = repo
-        binding.helper = helper
+        setDataValues()
+        createAnimation()
 
+        viewModelUser.getUser(args.currentRepo.author)
+        bind()
+
+        return binding.root
+    }
+
+    private fun setDataValues() {
+        binding.apply {
+            repo = args.currentRepo
+            clickHelper = OnClickHelper(activity as MainActivity, args.currentRepo)
+            progressBarHelper = this@RepoDetailsFragment.progressBarHelper
+            imageHelper = ImageHelper()
+        }
+    }
+
+    private fun createAnimation() {
         val trans =
             TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = trans
         sharedElementReturnTransition = trans
-
-        viewModelUser.getUser(repo.author)
-        bind()
-
-        return binding.root
     }
 
     private fun bind() {
@@ -56,14 +65,14 @@ class RepoDetailsFragment : Fragment(R.layout.fragment_repo_details) {
             { result ->
                 when (result) {
                     is Resource.Success -> {
-                        helper.setLoading(false)
+                        progressBarHelper.setLoading(false)
                         binding.user = result.value
                     }
                     is Resource.Failure -> {
-                        helper.setLoading(false)
+                        progressBarHelper.setLoading(false)
                         displayMessage(result.message, requireContext())
                     }
-                    is Resource.Loading -> helper.setLoading(true)
+                    is Resource.Loading -> progressBarHelper.setLoading(true)
                     else -> {
                     }
                 }

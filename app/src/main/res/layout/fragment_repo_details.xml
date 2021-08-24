@@ -15,8 +15,16 @@
             type="com.algebra.githubreposearch20.domain.model.User" />
 
         <variable
-            name="helper"
-            type="com.algebra.githubreposearch20.presentation.ui.fragments.Helper" />
+            name="clickHelper"
+            type="com.algebra.githubreposearch20.presentation.ui.helper.OnClickHelper" />
+
+        <variable
+            name="progressBarHelper"
+            type="com.algebra.githubreposearch20.presentation.ui.helper.ProgressBarHelper" />
+
+        <variable
+            name="imageHelper"
+            type="com.algebra.githubreposearch20.presentation.ui.helper.ImageHelper" />
 
         <import type="android.view.View" />
     </data>
@@ -48,9 +56,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="16dp"
-            android:onClick="@{() -> helper.redirectToGitHub()}"
+            android:onClick="@{() -> clickHelper.redirectToGitHub()}"
             android:scaleType="fitXY"
-            app:layout_constraintTop_toBottomOf="@id/tvAuthor" />
+            app:layout_constraintTop_toBottomOf="@id/tvAuthor"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tvInformationAuthor"
@@ -72,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center"
-            android:onClick="@{() -> helper.redirectToGitHubRepo()}"
+            android:onClick="@{() -> clickHelper.redirectToGitHubRepo()}"
             android:text="@{repo.repoName}"
             android:textColor="@color/black"
             android:textSize="24sp"
@@ -130,7 +139,7 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:indeterminateTint="#E53935"
-            android:visibility="@{helper.isLoading ? View.VISIBLE : View.GONE}"
+            android:visibility="@{progressBarHelper.isLoading ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

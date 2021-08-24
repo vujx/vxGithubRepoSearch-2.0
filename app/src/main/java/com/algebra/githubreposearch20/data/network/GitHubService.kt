@@ -18,5 +18,5 @@ interface GitHubService {
 
     @Keep
     @GET("users/{user}")
-    suspend fun getUserInfo(@Path("user")user: String): Response<UserEntity>
+    suspend fun getUserInfo(@Path("user") user: String): Response<UserEntity>
 }

@@ -10,7 +10,12 @@ import kotlinx.coroutines.*
 
 var queryTextChangedJob: Job? = null
 
-fun searchAction(searchView: SearchView, context: Context, viewModel: GitHubRepoViewModel, refreshHelper: RefreshHelper) {
+fun searchAction(
+    searchView: SearchView,
+    context: Context,
+    viewModel: GitHubRepoViewModel,
+    refreshHelper: RefreshHelper
+) {
     searchView.setOnQueryTextListener(
         object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

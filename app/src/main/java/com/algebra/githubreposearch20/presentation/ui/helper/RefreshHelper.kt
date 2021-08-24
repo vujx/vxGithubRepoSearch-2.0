@@ -12,7 +12,6 @@ class RefreshHelper(private val viewModel: GitHubRepoViewModel) : BaseObservable
     @Bindable
     private var isLoading = false
 
-
     fun isLoading() = isLoading
 
     private fun setLoading() {

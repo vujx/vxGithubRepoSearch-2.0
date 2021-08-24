@@ -2,13 +2,14 @@ package com.algebra.githubreposearch20
 
 import android.app.Application
 import android.content.res.Resources
-import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideApiRepoSearchingService
+import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideApiGitHubService
 import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideHttpClient
 import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideRetrofit
 import com.algebra.githubreposearch20.data.di.DatabaseModule.provideDatabase
 import com.algebra.githubreposearch20.data.di.DatabaseModule.provideSearchDao
 import com.algebra.githubreposearch20.data.di.SharePreferenceModule.provideSharePreference
-import com.algebra.githubreposearch20.data.di.UseCaseModule.provideUseCase
+import com.algebra.githubreposearch20.data.di.UseCaseModule.provideFilterUseCase
+import com.algebra.githubreposearch20.data.di.UseCaseModule.provideNetworkUseCase
 import com.algebra.githubreposearch20.data.repository.DefaultGitHupRepository
 import com.algebra.githubreposearch20.data.repository.DefaultSearchRepository
 import com.algebra.githubreposearch20.domain.repository.db.SearchRepository
@@ -26,7 +27,7 @@ class App : Application() {
     private val apiModule = module {
         single { provideHttpClient(applicationContext) }
         single { provideRetrofit(get()) }
-        single { provideApiRepoSearchingService(get()) }
+        single { provideApiGitHubService(get()) }
     }
 
     private val dbModule = module {
@@ -42,12 +43,13 @@ class App : Application() {
     }
 
     private val useCaseModule = module {
-        factory { provideUseCase(get(), get()) }
+        factory { provideNetworkUseCase(get(), get()) }
+        factory { provideFilterUseCase(get()) }
     }
 
     private val viewModelModule = module {
         viewModel {
-            GitHubRepoViewModel(get())
+            GitHubRepoViewModel(get(), get())
         }
         viewModel {
             UserViewModel(get())

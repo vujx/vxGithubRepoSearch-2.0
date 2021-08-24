@@ -6,7 +6,9 @@
         <!-- Style for positive button -->
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle.textColor</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle.textColor</item>
-        <item name="materialAlertDialogBodyTextStyle">@style/BodyTextAppearance.MaterialComponents.Body2</item>
+        <item name="materialAlertDialogBodyTextStyle">
+            @style/BodyTextAppearance.MaterialComponents.Body2
+        </item>
     </style>
 
     <style name="BodyTextAppearance.MaterialComponents.Body2" parent="@style/MaterialAlertDialog.MaterialComponents.Body.Text">

@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.algebra.githubreposearch20.R
 import com.algebra.githubreposearch20.databinding.ItemRepoBinding
 import com.algebra.githubreposearch20.domain.model.GitHubRepo
-import com.algebra.githubreposearch20.presentation.ui.fragments.Helper
+import com.algebra.githubreposearch20.presentation.ui.helper.ImageHelper
+import com.algebra.githubreposearch20.presentation.ui.helper.OnClickHelper
 
 class RepoAdapter(
     val activity: AppCompatActivity,
@@ -25,15 +26,21 @@ class RepoAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
-        val binding: ItemRepoBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_repo, parent, false)
+        val binding: ItemRepoBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_repo,
+            parent,
+            false
+        )
         return RepoViewHolder(binding)
     }
 
     override fun getItemCount(): Int = listOfRepo.size
 
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
-        val helper = Helper(activity, listOfRepo[position], view)
-        holder.itemRepo.helper = helper
+        val helper = OnClickHelper(activity, listOfRepo[position], view)
+        holder.itemRepo.clickHelper = helper
         holder.itemRepo.repo = listOfRepo[position]
+        holder.itemRepo.imageHelper = ImageHelper()
     }
 }
