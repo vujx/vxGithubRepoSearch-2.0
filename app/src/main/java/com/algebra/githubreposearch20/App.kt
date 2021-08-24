@@ -1,9 +1,7 @@
 package com.algebra.githubreposearch20
 
-import android.R
 import android.app.Application
 import android.content.res.Resources
-import androidx.navigation.fragment.NavHostFragment
 import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideApiRepoSearchingService
 import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideHttpClient
 import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideRetrofit
@@ -15,10 +13,6 @@ import com.algebra.githubreposearch20.data.repository.DefaultGitHupRepository
 import com.algebra.githubreposearch20.data.repository.DefaultSearchRepository
 import com.algebra.githubreposearch20.domain.repository.db.SearchRepository
 import com.algebra.githubreposearch20.domain.repository.network.GitHubRepository
-import com.algebra.githubreposearch20.presentation.MainActivity
-import com.algebra.githubreposearch20.presentation.ui.adapter.RepoAdapter
-import com.algebra.githubreposearch20.presentation.ui.adapter.RepoAdapterListener
-import com.algebra.githubreposearch20.presentation.ui.fragments.ReposFragment
 import com.algebra.githubreposearch20.presentation.ui.viewmodel.GitHubRepoViewModel
 import com.algebra.githubreposearch20.presentation.ui.viewmodel.UserViewModel
 import org.koin.android.ext.koin.androidContext
@@ -26,7 +20,6 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
-
 
 class App : Application() {
 
@@ -49,7 +42,7 @@ class App : Application() {
     }
 
     private val useCaseModule = module {
-        single { provideUseCase(get(), get()) }
+        factory { provideUseCase(get(), get()) }
     }
 
     private val viewModelModule = module {

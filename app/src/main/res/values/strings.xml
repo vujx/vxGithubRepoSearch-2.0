@@ -13,6 +13,7 @@
     <string name="forks">Forks</string>
     <string name="update">Updates</string>
     <string name="exit_app">Are you sure you want to exit?</string>
+
     <!-- Errors -->
     <string name="repo_not_found">Repo not found, try again!</string>
     <string name="unexpected_error">Unexpected error. Please try again later.</string>
