@@ -26,7 +26,10 @@ fun searchAction(searchView: SearchView, context: Context, viewModel: GitHubRepo
                     delay(2000)
                     newText?.let { search ->
                         when {
-                            search.length >= 3 -> viewModel.getAllGitHubRepos(search)
+                            search.length >= 3 -> {
+                                viewModel.getAllGitHubRepos(search)
+                                searchView.clearFocus()
+                            }
                         }
                     }
                 }

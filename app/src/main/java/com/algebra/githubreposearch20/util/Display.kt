@@ -9,7 +9,10 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import com.algebra.githubreposearch20.R
+import com.algebra.githubreposearch20.presentation.ui.dialog.DialogFilter
+import com.algebra.githubreposearch20.presentation.ui.fragments.ReposFragment
 import com.bumptech.glide.Glide
 
 fun displayPic(view: View, pictureURL: String, imageView: ImageView) {
@@ -41,4 +44,9 @@ fun redirectToGitHub(path: String, activity: AppCompatActivity) {
     intent.addCategory(Intent.CATEGORY_BROWSABLE)
     intent.data = Uri.parse(path)
     activity.startActivity(intent)
+}
+
+fun showFilterDialog(requireActivity: FragmentActivity, fragment: ReposFragment) {
+    val dialog = DialogFilter(fragment)
+    dialog.show(requireActivity.supportFragmentManager, "FilterRepos")
 }

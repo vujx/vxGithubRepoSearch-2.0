@@ -1,5 +1,6 @@
 package com.algebra.githubreposearch20.presentation.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,12 @@ class GitHubRepoViewModel(private val useCase: UseCase) : ViewModel(), BaseUseCa
     fun getAllGitHubRepos(searchValue: String) = viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
         _repos.postValue(Resource.Loading())
         useCase.getGitHubRepos.execute(searchValue, this@GitHubRepoViewModel)
+    }
+
+    fun filterGitHubRepos(filter: Int) = viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        _repos.postValue(Resource.Loading())
+        Log.d("ispisovo", filter.toString())
+        useCase.getFilterRepos.execute(filter, this@GitHubRepoViewModel)
     }
 
     override fun onSuccess(result: List<GitHubRepo>) {
