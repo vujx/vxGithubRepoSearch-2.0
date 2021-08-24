@@ -15,6 +15,7 @@ import com.algebra.githubreposearch20.presentation.MainActivity
 import com.algebra.githubreposearch20.presentation.ui.adapter.RepoAdapter
 import com.algebra.githubreposearch20.presentation.ui.dialog.DialogFilterListener
 import com.algebra.githubreposearch20.presentation.ui.helper.ProgressBarHelper
+import com.algebra.githubreposearch20.presentation.ui.helper.RefreshHelper
 import com.algebra.githubreposearch20.presentation.ui.helper.SearchResultHelper
 import com.algebra.githubreposearch20.presentation.ui.viewmodel.GitHubRepoViewModel
 import com.algebra.githubreposearch20.util.*
@@ -29,6 +30,7 @@ class ReposFragment : Fragment(R.layout.fragment_repos), DialogFilterListener {
     private lateinit var searchView: SearchView
     private val progressBarHelper = ProgressBarHelper()
     private val searchResultHelper = SearchResultHelper()
+    private lateinit var refreshHelper: RefreshHelper
 
     private val viewModelRepo: GitHubRepoViewModel by viewModel()
     private lateinit var adapter: RepoAdapter
@@ -48,9 +50,11 @@ class ReposFragment : Fragment(R.layout.fragment_repos), DialogFilterListener {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_repos, null, false)
 
+        refreshHelper = RefreshHelper(viewModelRepo)
         binding.apply {
             helper = progressBarHelper
             searchResult = searchResultHelper
+            refresh = refreshHelper
         }
 
         adapter = RepoAdapter(activity as MainActivity, binding.root)
@@ -71,7 +75,7 @@ class ReposFragment : Fragment(R.layout.fragment_repos), DialogFilterListener {
         searchView = searchItem?.actionView as SearchView
         searchView.queryHint = getString(R.string.searchQuery)
 
-        searchAction(searchView, requireContext(), viewModelRepo)
+        searchAction(searchView, requireContext(), viewModelRepo, refreshHelper)
         return super.onCreateOptionsMenu(menu, menuInflater)
     }
 

@@ -7,4 +7,5 @@ object Constants {
 
     const val REPOS_PREFERENCE = "repos_preference"
     const val SEARCH_REPOS = "search_repos"
+    const val LAST_DATE = "LastDate"
 }
