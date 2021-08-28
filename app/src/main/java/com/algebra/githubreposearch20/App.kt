@@ -63,7 +63,8 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         getResources = resources
-        startKoin {
+       
+	startKoin {
             androidLogger()
             androidContext(this@App)
             modules(
