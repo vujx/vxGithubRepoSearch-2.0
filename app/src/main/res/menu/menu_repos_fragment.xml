@@ -5,14 +5,14 @@
     <item
         android:id="@+id/searchIcon"
         android:icon="@drawable/ic_baseline_search_24"
-        app:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        android:title="@string/search" />
+        app:showAsAction="ifRoom|collapseActionView" />
 
     <item
         android:id="@+id/filterIcon"
         android:icon="@drawable/ic_baseline_filter_alt_24"
-        app:showAsAction="always"
-        android:title="@string/filter" />
+        android:title="@string/filter"
+        app:showAsAction="always" />
 
 </menu>

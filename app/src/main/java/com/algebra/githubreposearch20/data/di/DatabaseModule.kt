@@ -11,5 +11,6 @@ object DatabaseModule {
             .fallbackToDestructiveMigration().build()
     }
 
-    fun provideSearchDao(database: AppDatabase) = database.searchDao()
+    fun provideSearchDao(database: AppDatabase) =
+        database.searchDao()
 }

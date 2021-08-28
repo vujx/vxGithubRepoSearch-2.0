@@ -9,7 +9,9 @@ import retrofit2.Response
 class DefaultGitHupRepository(private val apiService: GitHubService) :
     GitHubRepoNetworkDataSource {
 
-    override suspend fun getGitHubRepos(searchRepo: String): Response<GitHubRepoEntity> = apiService.getSearchRepo(searchRepo)
+    override suspend fun getGitHubRepos(searchRepo: String): Response<GitHubRepoEntity> =
+        apiService.getSearchRepo(searchRepo)
 
-    override suspend fun getUserInformation(userName: String): Response<UserEntity> = apiService.getUserInfo(userName)
+    override suspend fun getUserInformation(userName: String): Response<UserEntity> =
+        apiService.getUserInfo(userName)
 }

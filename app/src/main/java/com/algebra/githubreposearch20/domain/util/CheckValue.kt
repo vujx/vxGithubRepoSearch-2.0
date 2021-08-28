@@ -6,9 +6,11 @@ import com.algebra.githubreposearch20.R
 fun parseDate(date: String?): String {
     return try {
         date?.let {
-            val month = date.substring(date.indexOf('-') + 1, date.indexOf('-', date.indexOf('-') + 1))
+            val month =
+                date.substring(date.indexOf('-') + 1, date.indexOf('-', date.indexOf('-') + 1))
             val year = date.substring(0, date.indexOf('-'))
-            val day = date.substring(date.indexOf('-', date.indexOf('-') + 1) + 1, date.indexOf('T'))
+            val day =
+                date.substring(date.indexOf('-', date.indexOf('-') + 1) + 1, date.indexOf('T'))
             "$day.$month.$year"
         } ?: App.getStringResource(R.string.check_value_message)
     } catch (e: Exception) {

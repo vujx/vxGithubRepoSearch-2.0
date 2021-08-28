@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.fragments.ReposFragment">
+
+    <data>
+
+        <variable
+            name="progressBarHelper"
+            type="com.algebra.githubreposearch20.presentation.ui.helper.ProgressBarHelper" />
+
+        <variable
+            name="searchResult"
+            type="com.algebra.githubreposearch20.presentation.ui.helper.SearchResultHelper" />
+
+        <variable
+            name="refresh"
+            type="com.algebra.githubreposearch20.presentation.ui.helper.RefreshHelper" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@drawable/gradient"
-        tools:context=".presentation.ui.fragments.ReposFragment">
+        android:background="@drawable/gradient">
 
         <TextView
             android:id="@+id/tvDisplayMessage"
@@ -19,36 +37,49 @@
             android:textStyle="italic|bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRepos"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDisplayMessage" />
+            app:layout_constraintTop_toBottomOf="@id/tvDisplayMessage"
+            app:onRefreshListener="@{() -> refresh.refreshList()}"
+            app:refreshing="@{refresh.isLoading}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRepos"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDisplayMessage" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:indeterminateTint="#E53935"
-            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{progressBarHelper.isLoading ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvSearchNoResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{searchResult.searchResult}"
             android:textColor="#F4511E"
             android:textSize="16sp"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

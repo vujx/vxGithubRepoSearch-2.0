@@ -20,5 +20,9 @@
         android:id="@+id/repoDetailsFragment"
         android:name="com.algebra.githubreposearch20.presentation.ui.fragments.RepoDetailsFragment"
         android:label="@string/details_title"
-        tools:layout="@layout/fragment_repo_details" />
+        tools:layout="@layout/fragment_repo_details">
+        <argument
+            android:name="currentRepo"
+            app:argType="com.algebra.githubreposearch20.domain.model.GitHubRepo" />
+    </fragment>
 </navigation>

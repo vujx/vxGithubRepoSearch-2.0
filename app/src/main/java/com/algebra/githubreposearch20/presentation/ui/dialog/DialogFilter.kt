@@ -13,7 +13,7 @@ class DialogFilter(private val listener: DialogFilterListener) : DialogFragment(
         mBuilder.setTitle(App.getStringResource(R.string.filter_title))
         val listOfValues = mutableListOf(
             App.getStringResource(R.string.stars),
-            App.getStringResource(R.string.filter),
+            App.getStringResource(R.string.forks),
             App.getStringResource(R.string.update)
         )
 

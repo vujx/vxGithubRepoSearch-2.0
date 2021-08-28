@@ -1,12 +1,21 @@
 package com.algebra.githubreposearch20.presentation.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.algebra.githubreposearch20.R
 import com.algebra.githubreposearch20.databinding.ItemRepoBinding
 import com.algebra.githubreposearch20.domain.model.GitHubRepo
+import com.algebra.githubreposearch20.presentation.ui.helper.ImageHelper
+import com.algebra.githubreposearch20.presentation.ui.helper.OnClickHelper
 
-class RepoAdapter(private val listener: RepoAdapterListener) : RecyclerView.Adapter<RepoViewHolder>() {
+class RepoAdapter(
+    val activity: AppCompatActivity,
+    var view: View?
+) : RecyclerView.Adapter<RepoViewHolder>() {
 
     private val listOfRepo = mutableListOf<GitHubRepo>()
 
@@ -17,13 +26,21 @@ class RepoAdapter(private val listener: RepoAdapterListener) : RecyclerView.Adap
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
-        val binding = ItemRepoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RepoViewHolder(binding, listOfRepo, listener)
+        val binding: ItemRepoBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_repo,
+            parent,
+            false
+        )
+        return RepoViewHolder(binding)
     }
 
     override fun getItemCount(): Int = listOfRepo.size
 
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
-        holder.bind(listOfRepo[position])
+        val helper = OnClickHelper(activity, listOfRepo[position], view)
+        holder.itemRepo.clickHelper = helper
+        holder.itemRepo.repo = listOfRepo[position]
+        holder.itemRepo.imageHelper = ImageHelper()
     }
 }

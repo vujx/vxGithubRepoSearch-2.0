@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">GtRepoPremium</string>
+
+    <!-- Menu -->
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+
+    <!-- Dialog -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="filter_title">Filter By</string>
+    <string name="stars">Stars</string>
+    <string name="forks">Forks</string>
+    <string name="update">Updates</string>
+    <string name="exit_app">Are you sure you want to exit?</string>
+
+    <!-- Errors -->
+    <string name="repo_not_found">Repo not found, try again!</string>
+    <string name="unexpected_error">Unexpected error. Please try again later.</string>
+    <string name="check_internet">Check you internet connection!</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="unknown_host">There is a problem with loading new data. Please try again later.</string>
+    <string name="user_not_found">User description not found, try again!</string>
+
+    <!-- Check Values-->
+    <string name="check_value_message">"Value not available!"</string>
+
+    <!-- ReposFragment-->
+    <string name="search_message">Search for GitHub Repository!</string>
+    <string name="github_repositories_list">GitHub Repositories List</string>
+    <string name="searchQuery">Enter repository</string>
+    <string name="displayForks">Forks: %d</string>
+    <string name="displayIssues">Issues: %d</string>
+    <string name="displayWatchers">Watchers: %d</string>
+    <string name="displayStars">Stars: %d</string>
+    <string name="displayUpdate">Update: %s</string>
+
+    <!-- RepoDetailsFragment-->
+    <string name="prog_lang">Language: %s</string>
+    <string name="date_create">Date Created: %s</string>
+    <string name="last_modified">Last Modified On: %s</string>
+
+    <!-- Toolbar-->
+    <string name="details_title">RepoDetails</string>
+    <string name="repos_title">GitHubReposPremium</string>
+
+</resources>

@@ -2,17 +2,20 @@ package com.algebra.githubreposearch20
 
 import android.app.Application
 import android.content.res.Resources
-import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideApiRepoSearchingService
+import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideApiGitHubService
 import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideHttpClient
 import com.algebra.githubreposearch20.data.di.ApiServiceModule.provideRetrofit
 import com.algebra.githubreposearch20.data.di.DatabaseModule.provideDatabase
 import com.algebra.githubreposearch20.data.di.DatabaseModule.provideSearchDao
-import com.algebra.githubreposearch20.data.di.UseCaseModule.provideUseCase
+import com.algebra.githubreposearch20.data.di.SharePreferenceModule.provideSharePreference
+import com.algebra.githubreposearch20.data.di.UseCaseModule.provideFilterUseCase
+import com.algebra.githubreposearch20.data.di.UseCaseModule.provideNetworkUseCase
 import com.algebra.githubreposearch20.data.repository.DefaultGitHupRepository
 import com.algebra.githubreposearch20.data.repository.DefaultSearchRepository
 import com.algebra.githubreposearch20.domain.repository.db.SearchRepository
 import com.algebra.githubreposearch20.domain.repository.network.GitHubRepository
 import com.algebra.githubreposearch20.presentation.ui.viewmodel.GitHubRepoViewModel
+import com.algebra.githubreposearch20.presentation.ui.viewmodel.UserViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -24,7 +27,7 @@ class App : Application() {
     private val apiModule = module {
         single { provideHttpClient(applicationContext) }
         single { provideRetrofit(get()) }
-        single { provideApiRepoSearchingService(get()) }
+        single { provideApiGitHubService(get()) }
     }
 
     private val dbModule = module {
@@ -40,11 +43,21 @@ class App : Application() {
     }
 
     private val useCaseModule = module {
-        single { provideUseCase(get(), get()) }
+        factory { provideNetworkUseCase(get(), get()) }
+        factory { provideFilterUseCase(get()) }
     }
 
     private val viewModelModule = module {
-        viewModel { GitHubRepoViewModel(get()) }
+        viewModel {
+            GitHubRepoViewModel(get(), get())
+        }
+        viewModel {
+            UserViewModel(get())
+        }
+    }
+
+    private val sharePreferencesModule = module {
+        single { provideSharePreference(applicationContext) }
     }
 
     override fun onCreate() {
@@ -59,7 +72,8 @@ class App : Application() {
                     dbModule,
                     repoModule,
                     useCaseModule,
-                    viewModelModule
+                    viewModelModule,
+                    sharePreferencesModule
                 )
             )
         }

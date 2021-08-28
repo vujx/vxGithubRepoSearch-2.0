@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Alert Dialog -->
     <style name="MaterialAlertDialog_OK_color" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <!-- Style for positive button -->
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle.textColor</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle.textColor</item>
-        <item name="materialAlertDialogBodyTextStyle">@style/BodyTextAppearance.MaterialComponents.Body2</item>
+        <item name="materialAlertDialogBodyTextStyle">
+            @style/BodyTextAppearance.MaterialComponents.Body2
+        </item>
     </style>
 
     <style name="BodyTextAppearance.MaterialComponents.Body2" parent="@style/MaterialAlertDialog.MaterialComponents.Body.Text">
@@ -23,7 +25,6 @@
     </style>
 
     <!-- Repo Item -->
-
     <style name="displayAuthorAndRepo">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -35,6 +36,12 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">16dp</item>
+    </style>
+
+    <!-- Splash Screen -->
+    <style name="SplashScreenTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_image</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
     </style>
 
 </resources>
