@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="repo"
+            type="com.algebra.githubreposearch20.domain.model.GitHubRepo" />
+
+        <variable
+            name="clickHelper"
+            type="com.algebra.githubreposearch20.presentation.ui.helper.OnClickHelper" />
+
+        <variable
+            name="imageHelper"
+            type="com.algebra.githubreposearch20.presentation.ui.helper.ImageHelper" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/white"
+        android:onClick="@{() -> clickHelper.onItemClickFree()}"
+        app:cardElevation="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvRepoName"
+                style="@style/displayAuthorAndRepo"
+                android:text="@{repo.repoName}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imAuthor"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvAuthorName"
+                style="@style/displayAuthorAndRepo"
+                android:text="@{repo.author}"
+                app:layout_constraintEnd_toEndOf="@id/imAuthor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imAuthor"
+                imageUrl="@{repo.thumbnailImage}"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="5dp"
+                android:onClick="@{() -> clickHelper.redirectToGitHub()}"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAuthorName"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvWatchers"
+                style="@style/detailsMainList"
+                android:text="@{String.format(@string/displayWatchers, repo.watchers)}"
+                app:layout_constraintStart_toEndOf="@id/imAuthor"
+                app:layout_constraintTop_toTopOf="@id/imAuthor" />
+
+            <TextView
+                android:id="@+id/tvStars"
+                style="@style/detailsMainList"
+                android:text="@{String.format(@string/displayStars, repo.stars)}"
+                app:layout_constraintBottom_toTopOf="@id/tvForks"
+                app:layout_constraintStart_toEndOf="@id/imAuthor"
+                app:layout_constraintTop_toBottomOf="@id/tvWatchers" />
+
+            <TextView
+                android:id="@+id/tvForks"
+                style="@style/detailsMainList"
+                android:text="@{String.format(@string/displayForks, repo.forks)}"
+                app:layout_constraintBottom_toBottomOf="@id/imAuthor"
+                app:layout_constraintStart_toEndOf="@id/imAuthor"
+                app:layout_constraintTop_toTopOf="@id/imAuthor" />
+
+            <TextView
+                android:id="@+id/tvUpdate"
+                style="@style/detailsMainList"
+                android:text="@{String.format(@string/displayUpdate, repo.update)}"
+                app:layout_constraintBottom_toTopOf="@id/tvIssues"
+                app:layout_constraintStart_toEndOf="@id/imAuthor"
+                app:layout_constraintTop_toBottomOf="@id/tvForks" />
+
+            <TextView
+                android:id="@+id/tvIssues"
+                style="@style/detailsMainList"
+                android:text="@{String.format(@string/displayIssues, repo.issues)}"
+                app:layout_constraintBottom_toBottomOf="@id/imAuthor"
+                app:layout_constraintStart_toEndOf="@id/imAuthor" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

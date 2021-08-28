@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GithubRepo</string>
+    <string name="app_name">GtRepoPremium</string>
 
     <!-- Menu -->
     <string name="search">Search</string>
@@ -34,12 +34,6 @@
     <string name="displayWatchers">Watchers: %d</string>
     <string name="displayStars">Stars: %d</string>
     <string name="displayUpdate">Update: %s</string>
-    <string name="try_premium_message">Try Premium so you can see details about repo!</string>
-
-    <!-- RepoDetailsFragment-->
-    <string name="prog_lang">Language: %s</string>
-    <string name="date_create">Date Created: %s</string>
-    <string name="last_modified">Last Modified On: %s</string>
 
     <!-- RepoDetailsFragment-->
     <string name="prog_lang">Language: %s</string>
@@ -48,7 +42,6 @@
 
     <!-- Toolbar-->
     <string name="details_title">RepoDetails</string>
-    <string name="repos_title">GitHubRepos</string>
-    <string name="search_message">Search for GitHub Repository!</string>
+    <string name="repos_title">GitHubReposPremium</string>
 
 </resources>

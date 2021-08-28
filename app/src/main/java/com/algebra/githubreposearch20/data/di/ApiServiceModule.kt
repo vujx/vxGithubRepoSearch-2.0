@@ -1,6 +1,5 @@
 package com.algebra.githubreposearch20.data.di
 
-import android.content.Context
 import com.algebra.githubreposearch20.data.network.GitHubService
 import com.algebra.githubreposearch20.util.Constants
 import okhttp3.OkHttpClient
@@ -22,7 +21,7 @@ object ApiServiceModule {
             .build()
     }
 
-    fun provideHttpClient(context: Context): OkHttpClient {
+    fun provideHttpClient(): OkHttpClient {
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
