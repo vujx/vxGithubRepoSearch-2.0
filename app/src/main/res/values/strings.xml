@@ -41,8 +41,14 @@
     <string name="date_create">Date Created: %s</string>
     <string name="last_modified">Last Modified On: %s</string>
 
+    <!-- RepoDetailsFragment-->
+    <string name="prog_lang">Language: %s</string>
+    <string name="date_create">Date Created: %s</string>
+    <string name="last_modified">Last Modified On: %s</string>
+
     <!-- Toolbar-->
     <string name="details_title">RepoDetails</string>
     <string name="repos_title">GitHubRepos</string>
+    <string name="search_message">Search for GitHub Repository!</string>
 
 </resources>
